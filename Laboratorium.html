@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiologi - SIMKES</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>SIMKES</h2>
+
+        <a href="index.html">Dashboard</a>
+        <a href="pendaftaran.html">Pendaftaran</a>
+        <a href="poli.html">Pemeriksaan Poli</a>
+        <a href="farmasi.html">Farmasi</a>
+        <a href="kasir.html">Kasir</a>
+        <a href="Radiologi.html">Radiologi</a>
+        <a class="active" href="Laboratorium.html">Laboratorium</a>
+        <a href="login.html">Logout</a>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+
+        <!-- Form Radiologi -->
+        <div class="card">
+            <h2>Laboratorium</h2>
+
+            <div class="form-group">
+                <input type="text" placeholder="Nama Pasien">
+            </div>
+
+            <div class="form-group">
+                <select>
+                    <option>Hermatologi</option>
+                    <option>Mikrobiologi</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input placeholder="Hasil Laboratorium"></textarea>
+            </div>
+
+            <button>Simpan Hasil</button>
+        </div>
+
+        <!-- Data Radiologi -->
+        <div class="card">
+            <h2>Data Hasil Pemeriksaan Lab</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pasien</th>
+                        <th>Pemeriksaan</th>
+                        <th>Hasil</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Siti</td>
+                        <td>Hermatologi</td>
+                        <td>Hasil</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
