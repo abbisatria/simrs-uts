@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMKES</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>SIMKES</h2>
+
+        <a href="index.html">Dashboard</a>
+        <a href="pendaftaran.html">Pendaftaran</a>
+        <a href="poli.html">Pemeriksaan Poli</a>
+        <a href="farmasi.html">Farmasi</a>
+        <a href="kasir.html">Kasir</a>
+        <a class="active" href="laboratorium.html">Laboratorium</a>
+        <a href="radiologi.html">Radiologi</a>
+        <a href="login.html">Logout</a>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <!-- FORM LAB -->
+        <div class="card">
+            <h2>Laboratorium</h2>
+
+            <input type="text" placeholder="Nama Pasien">
+
+            <!-- DROPDOWN -->
+            <select>
+                <option>Pilih Pemeriksaan</option>
+                <option>Hematologi</option>
+                <option>Urine</option>
+                <option>Kimia Darah</option>
+                <option>Gula Darah</option>
+            </select>
+
+            <input type="text" placeholder="Hasil Laboratorium">
+
+            <button>Simpan Hasil</button>
+        </div>
+
+        <!-- TABEL -->
+        <div class="card">
+            <h2>Data Laboratorium</h2>
+
+            <table>
+                <tr>
+                    <th>Pasien</th>
+                    <th>Pemeriksaan</th>
+                    <th>Hasil</th>
+                </tr>
+
+                <tr>
+                    <td>Siti</td>
+                    <td>Hematologi</td>
+                    <td>Normal</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>
