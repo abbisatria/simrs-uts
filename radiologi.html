@@ -14,34 +14,41 @@
         <a href="index.html">Dashboard</a>
         <a href="pendaftaran.html">Pendaftaran</a>
         <a href="poli.html">Pemeriksaan Poli</a>
-        <a class="active" href="farmasi.html">Farmasi</a>
+        <a href="farmasi.html">Farmasi</a>
         <a href="kasir.html">Kasir</a>
-        <a href="radiologi">Radiologi</a>
+        <a class="active" href="radiologi.html">Radiologi</a>
         <a href="Laboratorium.html">Laboratorium</a>
         <a href="login.html">Logout</a>
     </div>
     <div class="main">
 
         <div class="card">
-            <h2>Resep & Farmasi</h2>
+            <h2>Pemeriksaan Poli</h2>
             <input placeholder="Nama Pasien">
-            <input placeholder="Obat">
-            <input placeholder="Jumlah">
-            <button>Tambah Obat</button>
+            <select>
+                <option selected disabled>Pilih Diagnosa Radiologi</option>
+                <option>MRI</option>
+                <option>Rontgen</option>
+                <option>X-Ray</option>
+                <option>CT Scan</option>
+                <option>USG</option>
+            </select>
+            <input placeholder="Hasil Radiologi">
+            <button>Simpan Hasil</button>
         </div>
 
         <div class="card">
-            <h2>Daftar Resep</h2>
+            <h2>Antrian Poli</h2>
             <table>
                 <tr>
-                    <th>Pasien</th>
-                    <th>Obat</th>
-                    <th>Qty</th>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Status</th>
                 </tr>
                 <tr>
+                    <td>1</td>
                     <td>Budi</td>
-                    <td>Paracetamol</td>
-                    <td>10</td>
+                    <td>Dipanggil</td>
                 </tr>
             </table>
         </div>

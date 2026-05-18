@@ -12,47 +12,48 @@
     <div class="sidebar">
         <h2>SIMKES</h2>
         <a href="index.html">Dashboard</a>
-        <a class="active" href="pendaftaran.html">Pendaftaran</a>
+        <a href="pendaftaran.html">Pendaftaran</a>
         <a href="poli.html">Pemeriksaan Poli</a>
         <a href="farmasi.html">Farmasi</a>
         <a href="kasir.html">Kasir</a>
-        <a href="radiologi">Radiologi</a>
-        <a href="Laboratorium.html">Laboratorium</a>
+        <a href="radiologi.html">Radiologi</a>
+        <a class="active" href="Laboratorium.html">Laboratorium</a>
         <a href="login.html">Logout</a>
     </div>
     <div class="main">
 
         <div class="card">
-            <h2>Form Pendaftaran</h2>
+            <h2>Pemeriksaan Poli</h2>
             <input placeholder="Nama Pasien">
             <select>
-                <option>Poli Umum</option>
-                <option>Poli Gigi</option>
+                <option selected disabled>Pilih Pemeriksaan Laboratorium</option>
+                <option>Hematologi</option>
+                <option>Kimia Darah</option>
+                <option>Urinalisis</option>
+                <option>Tes Gula Darah</option>
+                <option>Kolesterol</option>
+                <option>Asam Urat</option>
+                <option>Tes Kehamilan</option>
+                <option>COVID-19</option>
+                <option>Fungsi Hati</option>
+                <option>Fungsi Ginjal</option>
             </select>
-            <br />
-            <button>Simpan</button>
+            <input placeholder="Simpan Hasil">
+            <button>Simpan Hasil</button>
         </div>
 
         <div class="card">
-            <h2>List Pendaftaran</h2>
+            <h2>Antrian Poli</h2>
             <table>
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
-                    <th>Poli</th>
                     <th>Status</th>
                 </tr>
                 <tr>
                     <td>1</td>
                     <td>Budi</td>
-                    <td>Umum</td>
-                    <td><span class="badge wait">Menunggu</span></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Siti</td>
-                    <td>Gigi</td>
-                    <td><span class="badge done">Selesai</span></td>
+                    <td>Dipanggil</td>
                 </tr>
             </table>
         </div>
