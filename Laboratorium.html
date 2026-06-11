@@ -4,17 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radiologi - SIMKES</title>
-
+    <title>Laboratorium - SIMKES</title>
     <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
 
-    <!-- Sidebar -->
     <div class="sidebar">
         <h2>SIMKES</h2>
-
         <a href="index.html">Dashboard</a>
         <a href="pendaftaran.html">Pendaftaran</a>
         <a href="poli.html">Pemeriksaan Poli</a>
@@ -25,35 +22,27 @@
         <a href="login.html">Logout</a>
     </div>
 
-    <!-- Main -->
     <div class="main">
 
-        <!-- Form Radiologi -->
         <div class="card">
             <h2>Laboratorium</h2>
-
             <div class="form-group">
-                <input type="text" placeholder="Nama Pasien">
+                <input id="input-nama-lab" type="text" placeholder="Nama Pasien">
             </div>
-
             <div class="form-group">
-                <select>
-                    <option>Hermatologi</option>
+                <select id="select-lab">
+                    <option>Hematologi</option>
                     <option>Mikrobiologi</option>
                 </select>
             </div>
-
             <div class="form-group">
-                <input placeholder="Hasil Laboratorium"></textarea>
+                <input id="input-hasil-lab" placeholder="Hasil Laboratorium">
             </div>
-
-            <button>Simpan Hasil</button>
+            <button id="btn-simpan-lab">Simpan Hasil</button>
         </div>
 
-        <!-- Data Radiologi -->
         <div class="card">
             <h2>Data Hasil Pemeriksaan Lab</h2>
-
             <table>
                 <thead>
                     <tr>
@@ -62,19 +51,12 @@
                         <th>Hasil</th>
                     </tr>
                 </thead>
-
-                <tbody>
-                    <tr>
-                        <td>Siti</td>
-                        <td>Hermatologi</td>
-                        <td>Hasil</td>
-                    </tr>
-                </tbody>
+                <tbody id="tbody-lab"></tbody>
             </table>
         </div>
 
     </div>
-
+    <script src="Script.js"></script>
 </body>
 
 </html>

@@ -24,29 +24,29 @@
 
         <div class="card">
             <h2>Pemeriksaan Poli</h2>
-            <input placeholder="Nama Pasien">
-            <input placeholder="Diagnosa">
-            <input placeholder="Tindakan">
-            <button>Simpan Pemeriksaan</button>
+            <input id="input-nama-poli" placeholder="Nama Pasien">
+            <input id="input-diagnosa" placeholder="Diagnosa">
+            <input id="input-tindakan" placeholder="Tindakan">
+            <button id="btn-simpan-poli">Simpan Pemeriksaan</button>
         </div>
 
         <div class="card">
             <h2>Antrian Poli</h2>
             <table>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Budi</td>
-                    <td>Dipanggil</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Diagnosa</th>
+                        <th>Tindakan</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-poli"></tbody>
             </table>
         </div>
 
     </div>
+    <script src="Script.js"></script>
 </body>
 
 </html>
