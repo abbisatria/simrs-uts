@@ -24,7 +24,6 @@
         <a href="login.html">Logout</a>
     </div>
 
-    <!-- Main Content -->
     <div class="main">
 
         <div class="card">
@@ -78,8 +77,6 @@
 
     <script>
 
-        // Ambil data dari localStorage
-
         let dataPendaftaran =
             JSON.parse(localStorage.getItem("dataPendaftaran")) || [];
 
@@ -98,7 +95,6 @@
         let dataRadiologi =
             JSON.parse(localStorage.getItem("dataRadiologi")) || [];
 
-        // Tampilkan jumlah data
 
         document.getElementById("totalPendaftaran").innerHTML =
             dataPendaftaran.length;
