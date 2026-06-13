@@ -4,48 +4,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIMKES</title>
-    <link rel="stylesheet" href="index.css" />
+    <title>SIMKES - Kasir</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
+
+    <!-- Sidebar -->
     <div class="sidebar">
         <h2>SIMKES</h2>
+
         <a href="index.html">Dashboard</a>
         <a href="pendaftaran.html">Pendaftaran</a>
         <a href="poli.html">Pemeriksaan Poli</a>
         <a href="farmasi.html">Farmasi</a>
         <a class="active" href="kasir.html">Kasir</a>
-        <a href="laboratorium.html">laboratorium</a>
-        <a href="radiologi.html">radiologi</a>
+        <a href="laboratorium.html">Laboratorium</a>
+        <a href="radiologi.html">Radiologi</a>
         <a href="login.html">Logout</a>
     </div>
+
+    <!-- Main Content -->
     <div class="main">
 
+        <!-- Form Pembayaran -->
         <div class="card">
             <h2>Pembayaran</h2>
-            <input placeholder="Nama Pasien">
-            <input placeholder="Total">
-            <button>Bayar</button>
+
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+            <br><br>
+
+            <input type="number" id="total" placeholder="Total Pembayaran">
+            <br><br>
+
+            <button onclick="bayar()">
+                Bayar
+            </button>
         </div>
 
+        <!-- Riwayat Transaksi -->
         <div class="card">
             <h2>Riwayat Transaksi</h2>
-            <table>
-                <tr>
-                    <th>Pasien</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>Budi</td>
-                    <td>100000</td>
-                    <td>Lunas</td>
-                </tr>
+
+            <table border="1" width="100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Pasien</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelTransaksi">
+                </tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+
+        // Ambil data transaksi dari localStorage
+        let dataTransaksi =
+            JSON.parse(localStorage.getItem("dataTransaksi")) || [];
+
+        // Tampilkan data saat halaman dibuka
+        tampilkanData();
+
+        function bayar() {
+
+            let pasien =
+                document.getElementById("namaPasien").value;
+
+            let total =
+                document.getElementById("total").value;
+
+            if (pasien === "" || total === "") {
+                alert("Silakan isi semua data!");
+                return;
+            }
+
+            // Tambah data ke array
+            dataTransaksi.push({
+                pasien: pasien,
+                total: total,
+                status: "Lunas"
+            });
+
+            // Simpan ke localStorage
+            localStorage.setItem(
+                "dataTransaksi",
+                JSON.stringify(dataTransaksi)
+            );
+
+            // Tampilkan ulang data
+            tampilkanData();
+
+            // Kosongkan input
+            document.getElementById("namaPasien").value = "";
+            document.getElementById("total").value = "";
+
+            alert("Pembayaran berhasil!");
+        }
+
+        function tampilkanData() {
+
+            let html = "";
+
+            dataTransaksi.forEach((item, index) => {
+
+                html += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.pasien}</td>
+                    <td>Rp ${Number(item.total).toLocaleString('id-ID')}</td>
+                    <td>${item.status}</td>
+                </tr>
+                `;
+
+            });
+
+            document.getElementById("tabelTransaksi").innerHTML = html;
+        }
+
+    </script>
+
 </body>
 
 </html>

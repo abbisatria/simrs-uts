@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIMKES</title>
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
+
     <div class="sidebar">
         <h2>SIMKES</h2>
         <a href="index.html">Dashboard</a>
@@ -16,37 +17,111 @@
         <a href="poli.html">Pemeriksaan Poli</a>
         <a class="active" href="farmasi.html">Farmasi</a>
         <a href="kasir.html">Kasir</a>
-        <a href="laboratorium.html">laboratorium</a>
-        <a href="radiologi.html">radiologi</a>
+        <a href="laboratorium.html">Laboratorium</a>
+        <a href="radiologi.html">Radiologi</a>
         <a href="login.html">Logout</a>
     </div>
+
     <div class="main">
 
         <div class="card">
             <h2>Resep & Farmasi</h2>
-            <input placeholder="Nama Pasien">
-            <input placeholder="Obat">
-            <input placeholder="Jumlah">
-            <button>Tambah Obat</button>
+
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+            <input type="text" id="obat" placeholder="Obat">
+            <input type="number" id="jumlah" placeholder="Jumlah">
+
+            <button onclick="tambahData()">
+                Tambah Obat
+            </button>
         </div>
 
         <div class="card">
             <h2>Daftar Resep</h2>
-            <table>
-                <tr>
-                    <th>Pasien</th>
-                    <th>Obat</th>
-                    <th>Qty</th>
-                </tr>
-                <tr>
-                    <td>Budi</td>
-                    <td>Paracetamol</td>
-                    <td>10</td>
-                </tr>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Pasien</th>
+                        <th>Obat</th>
+                        <th>Qty</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelResep">
+                </tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+
+        let dataResep =
+            JSON.parse(localStorage.getItem("dataResep")) || [];
+
+        tampilkanData();
+
+        function tambahData() {
+
+            let pasien =
+                document.getElementById("namaPasien").value;
+
+            let obat =
+                document.getElementById("obat").value;
+
+            let qty =
+                document.getElementById("jumlah").value;
+
+            if (pasien === "" || obat === "" || qty === "") {
+                alert("Semua data harus diisi!");
+                return;
+            }
+
+            dataResep.push({
+                pasien: pasien,
+                obat: obat,
+                qty: qty
+            });
+
+            localStorage.setItem(
+                "dataResep",
+                JSON.stringify(dataResep)
+            );
+
+            tampilkanData();
+
+
+            document.getElementById("namaPasien").value = "";
+            document.getElementById("obat").value = "";
+            document.getElementById("jumlah").value = "";
+
+            alert("Data Berhasil Ditambahkan!");
+        }
+
+        function tampilkanData() {
+
+            let html = "";
+
+            dataResep.forEach((item, index) => {
+
+                html += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.pasien}</td>
+                    <td>${item.obat}</td>
+                    <td>${item.qty}</td>
+                </tr>
+                `;
+
+            });
+
+            document.getElementById("tabelResep").innerHTML = html;
+        }
+
+    </script>
+
 </body>
 
 </html>

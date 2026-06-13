@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIMKES</title>
-    <link rel="stylesheet" href="index.css" />
+    <title>SIMKES - Pendaftaran</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
+
     <div class="sidebar">
         <h2>SIMKES</h2>
         <a href="index.html">Dashboard</a>
@@ -16,48 +17,120 @@
         <a href="poli.html">Pemeriksaan Poli</a>
         <a href="farmasi.html">Farmasi</a>
         <a href="kasir.html">Kasir</a>
-        <a href="laboratorium.html">laboratorium</a>
-        <a href="radiologi.html">radiologi</a>
+        <a href="laboratorium.html">Laboratorium</a>
+        <a href="radiologi.html">Radiologi</a>
         <a href="login.html">Logout</a>
     </div>
+
     <div class="main">
 
+        <!-- Form Pendaftaran -->
         <div class="card">
             <h2>Form Pendaftaran</h2>
-            <input placeholder="Nama Pasien">
-            <select>
-                <option>Poli Umum</option>
-                <option>Poli Gigi</option>
+
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+
+            <br><br>
+
+            <select id="poli">
+                <option value="">Pilih Poli</option>
+                <option value="Poli Umum">Poli Umum</option>
+                <option value="Poli Gigi">Poli Gigi</option>
             </select>
-            <br />
-            <button>Simpan</button>
+
+            <br><br>
+
+            <button onclick="simpanData()">
+                Simpan
+            </button>
         </div>
 
+        <!-- Tabel Pendaftaran -->
         <div class="card">
             <h2>List Pendaftaran</h2>
-            <table>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Poli</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Budi</td>
-                    <td>Umum</td>
-                    <td><span class="badge wait">Menunggu</span></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Siti</td>
-                    <td>Gigi</td>
-                    <td><span class="badge done">Selesai</span></td>
-                </tr>
+
+            <table border="1" width="100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Poli</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelPendaftaran">
+                </tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+
+        // Ambil data dari localStorage
+        let dataPendaftaran =
+            JSON.parse(localStorage.getItem("dataPendaftaran")) || [];
+
+        // Tampilkan data saat halaman dibuka
+        tampilkanData();
+
+        function simpanData() {
+
+            let nama =
+                document.getElementById("namaPasien").value;
+
+            let poli =
+                document.getElementById("poli").value;
+
+            if (nama === "" || poli === "") {
+                alert("Silakan isi semua data!");
+                return;
+            }
+
+            // Simpan ke array
+            dataPendaftaran.push({
+                nama: nama,
+                poli: poli,
+                status: "Menunggu"
+            });
+
+            // Simpan ke localStorage
+            localStorage.setItem(
+                "dataPendaftaran",
+                JSON.stringify(dataPendaftaran)
+            );
+
+            tampilkanData();
+
+            document.getElementById("namaPasien").value = "";
+            document.getElementById("poli").value = "";
+
+            alert("Data pendaftaran berhasil disimpan!");
+        }
+
+        function tampilkanData() {
+
+            let html = "";
+
+            dataPendaftaran.forEach((item, index) => {
+
+                html += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.nama}</td>
+                    <td>${item.poli}</td>
+                    <td>${item.status}</td>
+                </tr>
+                `;
+
+            });
+
+            document.getElementById("tabelPendaftaran").innerHTML = html;
+        }
+
+    </script>
+
 </body>
 
 </html>

@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIMKES</title>
-    <link rel="stylesheet" href="index.css" />
+    <title>SIMKES - Radiologi</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
@@ -25,42 +25,124 @@
 
     <div class="main">
 
+        <!-- Form Radiologi -->
         <div class="card">
             <h2>Radiologi</h2>
 
-            <input type="text" placeholder="Nama Pasien">
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
 
-            <select>
-                <option>Pilih Pemeriksaan</option>
+            <br><br>
+
+            <select id="pemeriksaan">
+                <option value="">Pilih Pemeriksaan</option>
                 <option>X-Ray</option>
-                <option>Hematologi</option>
+                <option>CT Scan</option>
+                <option>MRI</option>
+                <option>USG</option>
             </select>
 
-            <input type="text" placeholder="Hasil Radiologi">
+            <br><br>
 
-            <button>Simpan Hasil</button>
+            <input type="text" id="hasil" placeholder="Hasil Radiologi">
+
+            <br><br>
+
+            <button onclick="simpanData()">
+                Simpan Hasil
+            </button>
         </div>
 
-        <!-- TABEL -->
+        <!-- Tabel Data Radiologi -->
         <div class="card">
             <h2>Data Radiologi</h2>
 
-            <table>
-                <tr>
-                    <th>Pasien</th>
-                    <th>Pemeriksaan</th>
-                    <th>Hasil</th>
-                </tr>
+            <table border="1" width="100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Pasien</th>
+                        <th>Pemeriksaan</th>
+                        <th>Hasil</th>
+                    </tr>
+                </thead>
 
-                <tr>
-                    <td>Andi</td>
-                    <td>X-Ray</td>
-                    <td>Tidak ditemukan kelainan</td>
-                </tr>
+                <tbody id="tabelRadiologi">
+                </tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+
+        // Ambil data dari localStorage
+        let dataRadiologi =
+            JSON.parse(localStorage.getItem("dataRadiologi")) || [];
+
+        // Tampilkan data saat halaman dibuka
+        tampilkanData();
+
+        function simpanData() {
+
+            let pasien =
+                document.getElementById("namaPasien").value;
+
+            let pemeriksaan =
+                document.getElementById("pemeriksaan").value;
+
+            let hasil =
+                document.getElementById("hasil").value;
+
+            if (pasien === "" || pemeriksaan === "" || hasil === "") {
+                alert("Silakan isi semua data!");
+                return;
+            }
+
+            // Tambah data ke array
+            dataRadiologi.push({
+                pasien: pasien,
+                pemeriksaan: pemeriksaan,
+                hasil: hasil
+            });
+
+            // Simpan ke localStorage
+            localStorage.setItem(
+                "dataRadiologi",
+                JSON.stringify(dataRadiologi)
+            );
+
+            // Tampilkan ulang tabel
+            tampilkanData();
+
+            // Kosongkan form
+            document.getElementById("namaPasien").value = "";
+            document.getElementById("pemeriksaan").value = "";
+            document.getElementById("hasil").value = "";
+
+            alert("Data radiologi berhasil disimpan!");
+        }
+
+        function tampilkanData() {
+
+            let html = "";
+
+            dataRadiologi.forEach((item, index) => {
+
+                html += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.pasien}</td>
+                    <td>${item.pemeriksaan}</td>
+                    <td>${item.hasil}</td>
+                </tr>
+                `;
+
+            });
+
+            document.getElementById("tabelRadiologi").innerHTML = html;
+        }
+
+    </script>
 
 </body>
 

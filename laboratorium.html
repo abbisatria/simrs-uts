@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIMKES</title>
-
+    <title>SIMKES - Laboratorium</title>
     <link rel="stylesheet" href="index.css">
 </head>
 
@@ -25,49 +24,127 @@
         <a href="login.html">Logout</a>
     </div>
 
-    <!-- MAIN -->
+    <!-- CONTENT -->
     <div class="main">
 
-        <!-- FORM LAB -->
+        <!-- FORM LABORATORIUM -->
         <div class="card">
             <h2>Laboratorium</h2>
 
-            <input type="text" placeholder="Nama Pasien">
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+            <br><br>
 
-            <!-- DROPDOWN -->
-            <select>
-                <option>Pilih Pemeriksaan</option>
+            <select id="pemeriksaan">
+                <option value="">Pilih Pemeriksaan</option>
                 <option>Hematologi</option>
                 <option>Urine</option>
                 <option>Kimia Darah</option>
                 <option>Gula Darah</option>
             </select>
 
-            <input type="text" placeholder="Hasil Laboratorium">
+            <br><br>
 
-            <button>Simpan Hasil</button>
+            <input type="text" id="hasil" placeholder="Hasil Laboratorium">
+
+            <br><br>
+
+            <button onclick="simpanData()">
+                Simpan Hasil
+            </button>
         </div>
 
-        <!-- TABEL -->
+        <!-- TABEL DATA -->
         <div class="card">
             <h2>Data Laboratorium</h2>
 
-            <table>
-                <tr>
-                    <th>Pasien</th>
-                    <th>Pemeriksaan</th>
-                    <th>Hasil</th>
-                </tr>
+            <table border="1" width="100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Pasien</th>
+                        <th>Pemeriksaan</th>
+                        <th>Hasil</th>
+                    </tr>
+                </thead>
 
-                <tr>
-                    <td>Siti</td>
-                    <td>Hematologi</td>
-                    <td>Normal</td>
-                </tr>
+                <tbody id="tabelLab">
+                </tbody>
             </table>
         </div>
 
     </div>
 
+    <script>
+
+        // Ambil data dari localStorage
+        let dataLab =
+            JSON.parse(localStorage.getItem("dataLab")) || [];
+
+        // Tampilkan data saat halaman pertama kali dibuka
+        tampilkanData();
+
+        function simpanData() {
+
+            let pasien =
+                document.getElementById("namaPasien").value;
+
+            let pemeriksaan =
+                document.getElementById("pemeriksaan").value;
+
+            let hasil =
+                document.getElementById("hasil").value;
+
+            if (pasien === "" || pemeriksaan === "" || hasil === "") {
+                alert("Semua data harus diisi!");
+                return;
+            }
+
+            // Simpan ke array
+            dataLab.push({
+                pasien: pasien,
+                pemeriksaan: pemeriksaan,
+                hasil: hasil
+            });
+
+            // Simpan ke localStorage
+            localStorage.setItem(
+                "dataLab",
+                JSON.stringify(dataLab)
+            );
+
+            // Tampilkan ulang tabel
+            tampilkanData();
+
+            // Kosongkan form
+            document.getElementById("namaPasien").value = "";
+            document.getElementById("pemeriksaan").value = "";
+            document.getElementById("hasil").value = "";
+
+            alert("Data laboratorium berhasil disimpan!");
+        }
+
+        function tampilkanData() {
+
+            let html = "";
+
+            dataLab.forEach((item, index) => {
+
+                html += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.pasien}</td>
+                    <td>${item.pemeriksaan}</td>
+                    <td>${item.hasil}</td>
+                </tr>
+                `;
+
+            });
+
+            document.getElementById("tabelLab").innerHTML = html;
+        }
+
+    </script>
+
 </body>
+
 </html>

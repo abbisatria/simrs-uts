@@ -4,35 +4,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIMKES</title>
-    <link rel="stylesheet" href="index.css" />
+    <title>SIMKES Dashboard</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
+
+    <!-- Sidebar -->
     <div class="sidebar">
         <h2>SIMKES</h2>
+
         <a class="active" href="index.html">Dashboard</a>
         <a href="pendaftaran.html">Pendaftaran</a>
         <a href="poli.html">Pemeriksaan Poli</a>
         <a href="farmasi.html">Farmasi</a>
         <a href="kasir.html">Kasir</a>
-        <a href="laboratorium.html">laboratorium</a>
-        <a href="radiologi.html">radiologi</a>
+        <a href="laboratorium.html">Laboratorium</a>
+        <a href="radiologi.html">Radiologi</a>
         <a href="login.html">Logout</a>
     </div>
+
+    <!-- Main Content -->
     <div class="main">
 
         <div class="card">
             <h2>Dashboard</h2>
-            <p>Ringkasan hari ini</p>
-            <ul>
-                <li>Total Pasien: 25</li>
-                <li>Menunggu Poli: 10</li>
-                <li>Selesai: 15</li>
-            </ul>
+            <p>Ringkasan Data SIMKES</p>
+
+            <table border="1" width="100%">
+                <thead>
+                    <tr>
+                        <th>Menu</th>
+                        <th>Jumlah Data</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Pendaftaran</td>
+                        <td id="totalPendaftaran">0</td>
+                    </tr>
+
+                    <tr>
+                        <td>Pemeriksaan Poli</td>
+                        <td id="totalPoli">0</td>
+                    </tr>
+
+                    <tr>
+                        <td>Farmasi</td>
+                        <td id="totalFarmasi">0</td>
+                    </tr>
+
+                    <tr>
+                        <td>Kasir</td>
+                        <td id="totalKasir">0</td>
+                    </tr>
+
+                    <tr>
+                        <td>Laboratorium</td>
+                        <td id="totalLab">0</td>
+                    </tr>
+
+                    <tr>
+                        <td>Radiologi</td>
+                        <td id="totalRadiologi">0</td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
 
     </div>
+
+    <script>
+
+        // Ambil data dari localStorage
+
+        let dataPendaftaran =
+            JSON.parse(localStorage.getItem("dataPendaftaran")) || [];
+
+        let dataPoli =
+            JSON.parse(localStorage.getItem("dataPoli")) || [];
+
+        let dataFarmasi =
+            JSON.parse(localStorage.getItem("dataResep")) || [];
+
+        let dataKasir =
+            JSON.parse(localStorage.getItem("dataTransaksi")) || [];
+
+        let dataLab =
+            JSON.parse(localStorage.getItem("dataLab")) || [];
+
+        let dataRadiologi =
+            JSON.parse(localStorage.getItem("dataRadiologi")) || [];
+
+        // Tampilkan jumlah data
+
+        document.getElementById("totalPendaftaran").innerHTML =
+            dataPendaftaran.length;
+
+        document.getElementById("totalPoli").innerHTML =
+            dataPoli.length;
+
+        document.getElementById("totalFarmasi").innerHTML =
+            dataFarmasi.length;
+
+        document.getElementById("totalKasir").innerHTML =
+            dataKasir.length;
+
+        document.getElementById("totalLab").innerHTML =
+            dataLab.length;
+
+        document.getElementById("totalRadiologi").innerHTML =
+            dataRadiologi.length;
+
+    </script>
+
 </body>
 
 </html>
