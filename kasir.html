@@ -20,32 +20,70 @@
         <a href="laboratorium.html">Laboratorium</a>
         <a href="login.html">Logout</a>
     </div>
+
     <div class="main">
 
         <div class="card">
             <h2>Pembayaran</h2>
-            <input placeholder="Nama Pasien">
-            <input placeholder="Total">
-            <button>Bayar</button>
+
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+
+            <input type="number" id="totalBayar" placeholder="Total">
+
+            <button onclick="bayarPasien()">Bayar</button>
         </div>
 
         <div class="card">
             <h2>Riwayat Transaksi</h2>
+
             <table>
-                <tr>
-                    <th>Pasien</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>Budi</td>
-                    <td>100000</td>
-                    <td>Lunas</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Pasien</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelKasir">
+                    <tr>
+                        <td>Budi</td>
+                        <td>100000</td>
+                        <td>Lunas</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+
+        function bayarPasien() {
+
+            let nama = document.getElementById("namaPasien").value;
+            let total = document.getElementById("totalBayar").value;
+
+            if (nama === "" || total === "") {
+                alert("Semua data harus diisi!");
+                return;
+            }
+
+            let tabel = document.getElementById("tabelKasir");
+
+            let row = tabel.insertRow();
+
+            row.insertCell(0).innerHTML = nama;
+            row.insertCell(1).innerHTML = total;
+            row.insertCell(2).innerHTML = "Lunas";
+
+            document.getElementById("namaPasien").value = "";
+            document.getElementById("totalBayar").value = "";
+            alert("Data berhasil disimpan");
+        }
+
+    </script>
+
 </body>
 
 </html>

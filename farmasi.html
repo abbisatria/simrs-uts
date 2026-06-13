@@ -17,36 +17,73 @@
         <a class="active" href="farmasi.html">Farmasi</a>
         <a href="kasir.html">Kasir</a>
         <a href="radiologi.html">Radiologi</a>
-        <a href="laboratorium.html">Laboratorium </a>
+        <a href="laboratorium.html">Laboratorium</a>
         <a href="login.html">Logout</a>
     </div>
+
     <div class="main">
 
         <div class="card">
             <h2>Resep & Farmasi</h2>
-            <input placeholder="Nama Pasien">
-            <input placeholder="Obat">
-            <input placeholder="Jumlah">
-            <button>Tambah Obat</button>
+
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+            <input type="text" id="namaObat" placeholder="Obat">
+            <input type="number" id="jumlahObat" placeholder="Jumlah">
+
+            <button onclick="tambahObat()">Tambah Obat</button>
         </div>
 
         <div class="card">
             <h2>Daftar Resep</h2>
+
             <table>
-                <tr>
-                    <th>Pasien</th>
-                    <th>Obat</th>
-                    <th>Qty</th>
-                </tr>
-                <tr>
-                    <td>Budi</td>
-                    <td>Paracetamol</td>
-                    <td>10</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Pasien</th>
+                        <th>Obat</th>
+                        <th>Qty</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelResep">
+                    <tr>
+                        <td>Budi</td>
+                        <td>Paracetamol</td>
+                        <td>10</td>
+                    </tr>
+                </tbody>
             </table>
+
         </div>
 
     </div>
+
+    <script>
+
+        function tambahObat() {
+
+            let pasien = document.getElementById("namaPasien").value;
+            let obat = document.getElementById("namaObat").value;
+            let jumlah = document.getElementById("jumlahObat").value;
+
+            
+            let tabel = document.getElementById("tabelResep");
+
+            let row = tabel.insertRow();
+
+            row.insertCell(0).innerHTML = pasien;
+            row.insertCell(1).innerHTML = obat;
+            row.insertCell(2).innerHTML = jumlah;
+
+
+            document.getElementById("namaPasien").value = "";
+            document.getElementById("namaObat").value = "";
+            document.getElementById("jumlahObat").value = "";
+            alert("Data berhasil disimpan");
+        }
+
+    </script>
+
 </body>
 
 </html>

@@ -20,33 +20,78 @@
         <a href="laboratorium.html">Laboratorium</a>
         <a href="login.html">Logout</a>
     </div>
+
     <div class="main">
 
         <div class="card">
             <h2>Pemeriksaan Poli</h2>
-            <input placeholder="Nama Pasien">
-            <input placeholder="Diagnosa">
-            <input placeholder="Tindakan">
-            <button>Simpan Pemeriksaan</button>
+
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+
+            <input type="text" id="diagnosa" placeholder="Diagnosa">
+
+            <input type="text" id="tindakan" placeholder="Tindakan">
+
+            <button onclick="simpanPemeriksaan()">
+                Simpan Pemeriksaan
+            </button>
         </div>
 
         <div class="card">
             <h2>Antrian Poli</h2>
+
             <table>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Budi</td>
-                    <td>Dipanggil</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelPoli">
+                    <tr>
+                        <td>1</td>
+                        <td>Budi</td>
+                        <td>Dipanggil</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+
+        function simpanPemeriksaan() {
+
+            let nama = document.getElementById("namaPasien").value;
+            let diagnosa = document.getElementById("diagnosa").value;
+            let tindakan = document.getElementById("tindakan").value;
+
+            if (nama === "" || diagnosa === "" || tindakan === "") {
+                alert("Semua data harus diisi!");
+                return;
+            }
+
+            let tabel = document.getElementById("tabelPoli");
+
+            let nomor = tabel.rows.length + 1;
+
+            let row = tabel.insertRow();
+
+            row.insertCell(0).innerHTML = nomor;
+            row.insertCell(1).innerHTML = nama;
+            row.insertCell(2).innerHTML = "Selesai Diperiksa";
+
+            document.getElementById("namaPasien").value = "";
+            document.getElementById("diagnosa").value = "";
+            document.getElementById("tindakan").value = "";
+            alert("Data berhasil disimpan");
+        }
+
+    </script>
+
 </body>
 
 </html>

@@ -10,7 +10,7 @@
 
 <body>
     <div class="sidebar">
-           <h2>SIMKES</h2>
+        <h2>SIMKES</h2>
         <a href="index.html">Dashboard</a>
         <a href="pendaftaran.html">Pendaftaran</a>
         <a href="poli.html">Pemeriksaan Poli</a>
@@ -20,39 +20,79 @@
         <a class="active" href="laboratorium.html">Laboratorium</a>
         <a href="login.html">Logout</a>
     </div>
+
     <div class="main">
 
         <div class="card">
             <h2>Laboratorium</h2>
-            <input placeholder="Nama Pasien">
-                <select>
-                    <option>Hematologi</option>
-                    <option>Tes Darah</option>
-                    <option>Panel Metabolik</option>
-    
-                </select>
 
-            <input placeholder="Hasil Laboratorium">
-            <button>Simpan hasil</button>
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+
+            <select id="jenisPemeriksaan">
+                <option>Hematologi</option>
+                <option>Tes Darah</option>
+                <option>Panel Metabolik</option>
+            </select>
+
+            <input type="text" id="hasilLab" placeholder="Hasil Laboratorium">
+
+            <button onclick="simpanLab()">Simpan Hasil</button>
         </div>
 
         <div class="card">
             <h2>Data Pemeriksaan Lab</h2>
+
             <table>
-                <tr>
-                    <th>Pasien</th>
-                    <th>Pemeriksaan</th>
-                    <th>Hasil</th>
-                </tr>
-                <tr>
-                    <td>Siti</td>
-                    <td>Hematologi</td>
-                    <td>Normal</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Pasien</th>
+                        <th>Pemeriksaan</th>
+                        <th>Hasil</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelLab">
+                    <tr>
+                        <td>Siti</td>
+                        <td>Hematologi</td>
+                        <td>Normal</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+
+        function simpanLab() {
+
+            let nama = document.getElementById("namaPasien").value;
+            let pemeriksaan = document.getElementById("jenisPemeriksaan").value;
+            let hasil = document.getElementById("hasilLab").value;
+
+            if (nama === "" || hasil === "") {
+                alert("Semua data harus diisi!");
+                return;
+            }
+
+            let tabel = document.getElementById("tabelLab");
+
+            let row = tabel.insertRow();
+
+            row.insertCell(0).innerHTML = nama;
+            row.insertCell(1).innerHTML = pemeriksaan;
+            row.insertCell(2).innerHTML = hasil;
+
+            document.getElementById("namaPasien").value = "";
+            document.getElementById("hasilLab").value = "";
+            document.getElementById("jenisPemeriksaan").selectedIndex = 0;
+
+            alert("Data berhasil disimpan");
+        }
+
+    </script>
+
 </body>
 
 </html>
