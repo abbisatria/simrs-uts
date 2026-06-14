@@ -20,33 +20,108 @@
         <a href="kasir.html">Kasir</a>
         <a href="login.html">Logout</a>
     </div>
+
     <div class="main">
 
         <div class="card">
             <h2>Pemeriksaan Poli</h2>
-            <input placeholder="Nama Pasien">
-            <input placeholder="Diagnosa">
-            <input placeholder="Tindakan">
-            <button>Simpan Pemeriksaan</button>
+
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+            <input type="text" id="diagnosa" placeholder="Diagnosa">
+            <input type="text" id="tindakan" placeholder="Tindakan">
+
+            <button onclick="simpanPemeriksaan()">Simpan Pemeriksaan</button>
+            <button onclick="hapusData()">Hapus Data</button>
         </div>
 
         <div class="card">
             <h2>Antrian Poli</h2>
-            <table>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Budi</td>
-                    <td>Dipanggil</td>
-                </tr>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Diagnosa</th>
+                        <th>Tindakan</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="antrianPoli"></tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+        let dataPoli = JSON.parse(
+            localStorage.getItem("dataPoli")
+        ) || [];
+
+        renderTable();
+
+        function simpanPemeriksaan() {
+            let nama = document.getElementById("namaPasien").value;
+            let diagnosa = document.getElementById("diagnosa").value;
+            let tindakan = document.getElementById("tindakan").value;
+
+            if (nama && diagnosa && tindakan) {
+
+                dataPoli.push({
+                    nama: nama,
+                    diagnosa: diagnosa,
+                    tindakan: tindakan,
+                    status: "Dipanggil"
+                });
+
+                localStorage.setItem(
+                    "dataPoli",
+                    JSON.stringify(dataPoli)
+                );
+
+                console.log(dataPoli);
+
+                renderTable();
+
+                document.getElementById("namaPasien").value = "";
+                document.getElementById("diagnosa").value = "";
+                document.getElementById("tindakan").value = "";
+
+                alert("Data pemeriksaan berhasil disimpan");
+
+            } else {
+                alert("Semua data harus diisi");
+            }
+        }
+
+        function renderTable() {
+            let html = "";
+
+            dataPoli.forEach((item, index) => {
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.nama}</td>
+                        <td>${item.diagnosa}</td>
+                        <td>${item.tindakan}</td>
+                        <td>${item.status}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("antrianPoli").innerHTML = html;
+        }
+
+        function hapusData() {
+            if (confirm("Yakin ingin menghapus semua data?")) {
+                localStorage.removeItem("dataPoli");
+                dataPoli = [];
+                renderTable();
+            }
+        }
+    </script>
+
 </body>
 
 </html>

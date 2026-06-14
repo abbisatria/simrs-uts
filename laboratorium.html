@@ -26,39 +26,107 @@
         <div class="card">
             <h2>Laboratorium</h2>
 
-            <input placeholder="Nama Pasien">
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
 
-            <select>
+            <select id="pemeriksaan">
+                <option value="">-- Pilih Pemeriksaan --</option>
                 <option>Hematologi</option>
                 <option>Urinalisis</option>
                 <option>Kimia Klinik</option>
                 <option>Mikrobiologi</option>
             </select>
 
-            <input placeholder="Hasil Laboratorium">
+            <input type="text" id="hasilLab" placeholder="Hasil Laboratorium">
 
-            <button>Simpan Hasil</button>
+            <button onclick="simpanLab()">Simpan Hasil</button>
+            <button onclick="hapusData()">Hapus Data</button>
         </div>
 
         <div class="card">
             <h2>Data Pemeriksaan Lab</h2>
 
-            <table>
-                <tr>
-                    <th>Pasien</th>
-                    <th>Pemeriksaan</th>
-                    <th>Hasil</th>
-                </tr>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Pasien</th>
+                        <th>Pemeriksaan</th>
+                        <th>Hasil</th>
+                    </tr>
+                </thead>
 
-                <tr>
-                    <td>Siti</td>
-                    <td>Hematologi</td>
-                    <td>Normal</td>
-                </tr>
+                <tbody id="dataLab"></tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+        let laboratorium = JSON.parse(
+            localStorage.getItem("laboratorium")
+        ) || [];
+
+        renderTable();
+
+        function simpanLab() {
+            let pasien = document.getElementById("namaPasien").value;
+            let pemeriksaan = document.getElementById("pemeriksaan").value;
+            let hasil = document.getElementById("hasilLab").value;
+
+            if (pasien && pemeriksaan && hasil) {
+
+                laboratorium.push({
+                    pasien: pasien,
+                    pemeriksaan: pemeriksaan,
+                    hasil: hasil
+                });
+
+                localStorage.setItem(
+                    "laboratorium",
+                    JSON.stringify(laboratorium)
+                );
+
+                console.log(laboratorium);
+
+                renderTable();
+
+                document.getElementById("namaPasien").value = "";
+                document.getElementById("pemeriksaan").selectedIndex = 0;
+                document.getElementById("hasilLab").value = "";
+
+                alert("Data laboratorium berhasil disimpan");
+
+            } else {
+                alert("Semua data harus diisi");
+            }
+        }
+
+        function renderTable() {
+            let html = "";
+
+            laboratorium.forEach((item, index) => {
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.pasien}</td>
+                        <td>${item.pemeriksaan}</td>
+                        <td>${item.hasil}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("dataLab").innerHTML = html;
+        }
+
+        function hapusData() {
+            if (confirm("Yakin ingin menghapus semua data?")) {
+                localStorage.removeItem("laboratorium");
+                laboratorium = [];
+                renderTable();
+            }
+        }
+    </script>
+
 </body>
 
 </html>

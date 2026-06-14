@@ -20,44 +20,111 @@
         <a href="kasir.html">Kasir</a>
         <a href="login.html">Logout</a>
     </div>
+
     <div class="main">
 
         <div class="card">
             <h2>Form Pendaftaran</h2>
-            <input placeholder="Nama Pasien">
-            <select>
+
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+
+            <select id="poli">
+                <option value="">-- Pilih Poli --</option>
                 <option>Poli Umum</option>
                 <option>Poli Gigi</option>
             </select>
-            <br />
-            <button>Simpan</button>
+
+            <br><br>
+
+            <button onclick="simpanPendaftaran()">Simpan</button>
+            <button onclick="hapusData()">Hapus Data</button>
         </div>
 
         <div class="card">
             <h2>List Pendaftaran</h2>
-            <table>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Poli</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Budi</td>
-                    <td>Umum</td>
-                    <td><span class="badge wait">Menunggu</span></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Siti</td>
-                    <td>Gigi</td>
-                    <td><span class="badge done">Selesai</span></td>
-                </tr>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Poli</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="dataPendaftaran"></tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+        let pendaftaran = JSON.parse(
+            localStorage.getItem("pendaftaran")
+        ) || [];
+
+        renderTable();
+
+        function simpanPendaftaran() {
+            let nama = document.getElementById("namaPasien").value;
+            let poli = document.getElementById("poli").value;
+
+            if (nama && poli) {
+
+                pendaftaran.push({
+                    nama: nama,
+                    poli: poli,
+                    status: "Menunggu"
+                });
+
+                localStorage.setItem(
+                    "pendaftaran",
+                    JSON.stringify(pendaftaran)
+                );
+
+                console.log(pendaftaran);
+
+                renderTable();
+
+                document.getElementById("namaPasien").value = "";
+                document.getElementById("poli").selectedIndex = 0;
+
+                alert("Pendaftaran berhasil disimpan");
+
+            } else {
+                alert("Nama pasien dan poli harus diisi");
+            }
+        }
+
+        function renderTable() {
+            let html = "";
+
+            pendaftaran.forEach((item, index) => {
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.nama}</td>
+                        <td>${item.poli}</td>
+                        <td>
+                            <span class="badge wait">${item.status}</span>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("dataPendaftaran").innerHTML = html;
+        }
+
+        function hapusData() {
+            if (confirm("Yakin ingin menghapus semua data?")) {
+                localStorage.removeItem("pendaftaran");
+                pendaftaran = [];
+                renderTable();
+            }
+        }
+    </script>
+
 </body>
 
 </html>

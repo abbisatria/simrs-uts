@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIMKES</title>
-    <link rel="stylesheet" href="index.css" />
+    <title>SIMKES - Farmasi</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
@@ -20,33 +20,105 @@
         <a href="kasir.html">Kasir</a>
         <a href="login.html">Logout</a>
     </div>
+
     <div class="main">
 
         <div class="card">
             <h2>Resep & Farmasi</h2>
-            <input placeholder="Nama Pasien">
-            <input placeholder="Obat">
-            <input placeholder="Jumlah">
-            <button>Tambah Obat</button>
+
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+            <input type="text" id="obat" placeholder="Nama Obat">
+            <input type="number" id="jumlah" placeholder="Jumlah">
+
+            <button onclick="tambahObat()">Tambah Obat</button>
+            <button onclick="hapusData()">Hapus Data</button>
         </div>
 
         <div class="card">
             <h2>Daftar Resep</h2>
-            <table>
-                <tr>
-                    <th>Pasien</th>
-                    <th>Obat</th>
-                    <th>Qty</th>
-                </tr>
-                <tr>
-                    <td>Budi</td>
-                    <td>Paracetamol</td>
-                    <td>10</td>
-                </tr>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Pasien</th>
+                        <th>Obat</th>
+                        <th>Qty</th>
+                    </tr>
+                </thead>
+
+                <tbody id="daftarResep"></tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+        let resep = JSON.parse(
+            localStorage.getItem("resep")
+        ) || [];
+
+        renderTable();
+
+        function tambahObat() {
+            let namaPasien = document.getElementById("namaPasien").value;
+            let obat = document.getElementById("obat").value;
+            let jumlah = document.getElementById("jumlah").value;
+
+            if (namaPasien && obat && jumlah) {
+
+                resep.push({
+                    pasien: namaPasien,
+                    obat: obat,
+                    qty: jumlah
+                });
+
+                localStorage.setItem(
+                    "resep",
+                    JSON.stringify(resep)
+                );
+
+                console.log(resep);
+
+                renderTable();
+
+                document.getElementById("namaPasien").value = "";
+                document.getElementById("obat").value = "";
+                document.getElementById("jumlah").value = "";
+
+                alert("Data resep berhasil disimpan");
+
+            } else {
+                alert("Semua data harus diisi!");
+            }
+        }
+
+        function renderTable() {
+            let html = "";
+
+            resep.forEach((item, index) => {
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.pasien}</td>
+                        <td>${item.obat}</td>
+                        <td>${item.qty}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("daftarResep").innerHTML = html;
+        }
+
+        function hapusData() {
+            if (confirm("Yakin ingin menghapus semua data resep?")) {
+                localStorage.removeItem("resep");
+                resep = [];
+                renderTable();
+            }
+        }
+    </script>
+
 </body>
 
 </html>

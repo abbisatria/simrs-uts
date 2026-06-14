@@ -20,32 +20,102 @@
         <a class="active" href="kasir.html">Kasir</a>
         <a href="login.html">Logout</a>
     </div>
+
     <div class="main">
 
         <div class="card">
             <h2>Pembayaran</h2>
-            <input placeholder="Nama Pasien">
-            <input placeholder="Total">
-            <button>Bayar</button>
+
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+            <input type="number" id="total" placeholder="Total Pembayaran">
+
+            <button onclick="bayar()">Bayar</button>
+            <button onclick="hapusData()">Hapus Data</button>
         </div>
 
         <div class="card">
             <h2>Riwayat Transaksi</h2>
-            <table>
-                <tr>
-                    <th>Pasien</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>Budi</td>
-                    <td>100000</td>
-                    <td>Lunas</td>
-                </tr>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Pasien</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="riwayatTransaksi"></tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+        let transaksi = JSON.parse(
+            localStorage.getItem("transaksi")
+        ) || [];
+
+        renderTable();
+
+        function bayar() {
+            let pasien = document.getElementById("namaPasien").value;
+            let total = document.getElementById("total").value;
+
+            if (pasien && total) {
+
+                transaksi.push({
+                    pasien: pasien,
+                    total: total,
+                    status: "Lunas"
+                });
+
+                localStorage.setItem(
+                    "transaksi",
+                    JSON.stringify(transaksi)
+                );
+
+                console.log(transaksi);
+
+                renderTable();
+
+                document.getElementById("namaPasien").value = "";
+                document.getElementById("total").value = "";
+
+                alert("Pembayaran berhasil");
+
+            } else {
+                alert("Nama pasien dan total pembayaran harus diisi");
+            }
+        }
+
+        function renderTable() {
+            let html = "";
+
+            transaksi.forEach((item, index) => {
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.pasien}</td>
+                        <td>Rp ${Number(item.total).toLocaleString('id-ID')}</td>
+                        <td>${item.status}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("riwayatTransaksi").innerHTML = html;
+        }
+
+        function hapusData() {
+            if (confirm("Yakin ingin menghapus semua data transaksi?")) {
+                localStorage.removeItem("transaksi");
+                transaksi = [];
+                renderTable();
+            }
+        }
+    </script>
+
 </body>
 
 </html>
